@@ -1,0 +1,24 @@
+---
+version: "3.8"
+
+services:
+  cloud-manager:
+    build:
+      context: .
+      dockerfile: test.Dockerfile
+    container_name: cloud-manager-client
+    env_file:
+      - ./packages/manager/.env
+  nginx-reverse-proxy:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.test.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: cloud-manager-reverse-proxy
+    depends_on:
+      - cloud-manager
+  debug-helper:
+    image: busybox
+
+...
