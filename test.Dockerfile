@@ -15,8 +15,6 @@
 
 FROM nginx:1.24.0-bullseye
 
-RUN yarn workspace linode-manager build
-
 RUN rm /etc/nginx/conf.d/default.conf
 COPY ./packages/manager/build /var/www/html/linode-cloud 
 COPY ./nginx.manager.conf /etc/nginx/sites-enabled/cloud1.linode.com
