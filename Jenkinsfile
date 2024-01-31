@@ -1,3 +1,3 @@
-library 'ui-builder'
+@Library('linode-cloud-manager-containerized')_
 
-buildManager()
+buildManagerTest()
