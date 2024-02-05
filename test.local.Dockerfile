@@ -6,8 +6,6 @@ COPY . .
 
 RUN yarn install:all
 
-# ENV NODE_ENV=development
-
 RUN yarn workspace @linode/validation build \
     && yarn workspace @linode/api-v4 build
 
@@ -17,7 +15,8 @@ FROM nginx:1.24.0-bullseye
 
 RUN rm /etc/nginx/conf.d/default.conf
 
-COPY ./packages/manager/build /var/www/html/linode-cloud 
+COPY --from=builder /home/node/app/packages/manager/build /var/www/html/linode-cloud 
+
 COPY ./nginx.manager.conf /etc/nginx/sites-enabled/cloud1.linode.com
 COPY ./nginx.manager.default.conf /etc/nginx/nginx.conf
 
