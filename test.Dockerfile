@@ -13,7 +13,7 @@ RUN yarn workspace @linode/validation build \
 
 RUN yarn workspace linode-manager build
 
-FROM nginx:1.24.0-bullseye
+FROM nginxinc/nginx-unprivileged:1.21-alpine
 
 RUN rm /etc/nginx/conf.d/default.conf
 
@@ -21,7 +21,7 @@ COPY ./packages/manager/build /var/www/html/linode-cloud
 COPY ./nginx.manager.conf /etc/nginx/sites-enabled/cloud1.linode.com
 COPY ./nginx.manager.default.conf /etc/nginx/nginx.conf
 
-EXPOSE 80
+EXPOSE 8080
 
 CMD ["nginx", "-g", "daemon off;"]
 # CMD ["yarn", "start:manager:ci"]
