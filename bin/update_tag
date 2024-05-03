@@ -15,16 +15,17 @@ import os
 import re
 
 def get_version(ref="HEAD"):
-    describe = call('git describe {}'.format(ref))
+    # describe = call('git describe {}'.format(ref))
+    latest_tag = call("""git for-each-ref refs/tags --sort=-taggerdate --format='%(refname)' --count=1""")
+    latest_tag_tokens = latest_tag.split('/')[-1].split('.')
     branch = call('git rev-parse --abbrev-ref HEAD')
 
-    describe = describe.replace("-", ".").split(".")
     parts = [0, 0, 0, branch]
 
-    l = len(describe)
+    l = len(latest_tag_tokens)
     for i in range(3):
         if l > i:
-            parts[i] = int(describe[i])
+            parts[i] = int(latest_tag_tokens[i])
 
     return tuple(parts)
 
