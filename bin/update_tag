@@ -16,20 +16,20 @@ import re
 
 def get_version(ref="HEAD"):
     # describe = call('git describe {}'.format(ref))
-    latest_tag = call("""git for-each-ref refs/tags --sort=-taggerdate --format='%(refname)' --count=1""")
-    print(latest_tag)
-    latest_tag_tokens = latest_tag.split('/')[-1].split('.')
-    print(latest_tag_tokens)
-    branch = call('git rev-parse --abbrev-ref HEAD')
+    all_tags = call('git tag --list')
+    print(all_tags)
+    # latest_tag_tokens = latest_tag.split('/')[-1].split('.')
+    # print(latest_tag_tokens)
+    # branch = call('git rev-parse --abbrev-ref HEAD')
 
-    parts = [0, 0, 0, branch]
+    # parts = [0, 0, 0, branch]
 
-    l = len(latest_tag_tokens)
-    for i in range(3):
-        if l > i:
-            parts[i] = int(latest_tag_tokens[i])
+    # l = len(latest_tag_tokens)
+    # for i in range(3):
+    #     if l > i:
+    #         parts[i] = int(latest_tag_tokens[i])
 
-    return tuple(parts)
+    return tuple([0])
 
 def call(cmd):
     _, output = subprocess.getstatusoutput(cmd)
