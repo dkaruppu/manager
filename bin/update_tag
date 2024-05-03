@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+# Usage:
+#   ./bin/version
+#       Prints the current version
+#   ./bin/version minor
+#       Tags a minor version bump
+#   ./bin/version major
+#       Tags a major version bump
+#   ./bin/version changelog [-d distribution]
+#       Prints a Debian changelog
+
+import subprocess
+import sys
+import os
+import re
+
+def get_version(ref="HEAD"):
+    describe = call('git describe {}'.format(ref))
+    branch = call('git rev-parse --abbrev-ref HEAD')
+
+    describe = describe.replace("-", ".").split(".")
+    parts = [0, 0, 0, branch]
+
+    l = len(describe)
+    for i in range(3):
+        if l > i:
+            parts[i] = int(describe[i])
+
+    return tuple(parts)
+
+def call(cmd):
+    _, output = subprocess.getstatusoutput(cmd)
+    return output
+
+
+major, minor, patch, branch = get_version()
+
+if len(sys.argv) == 1:
+    print("{}.{}.{}".format(major, minor, patch))
+else:
+    if sys.argv[1] == "major":
+        ver = "{}.{}.{}".format(major + 1, minor, patch)
+    elif sys.argv[1] == "minor":
+        ver = "{}.{}.{}".format(major, minor + 1, patch)
+    else:
+        ver = "{}.{}.{}".format(major, minor, patch + 1)
+    call("git tag -a {} -m {}".format(ver, ver))
+    call("git push origin {}".format(ver))
+    print(ver)
