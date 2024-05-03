@@ -44,4 +44,4 @@ else:
     call('git config user.name "baker"')
     call('git tag -a {} -m {}'.format(ver, ver))
     call('git push origin {}'.format(ver))
-    print(ver.replace(".", "-"))
+    print(ver)
