@@ -41,6 +41,7 @@ else:
     else:
         ver = "{}.{}.{}".format(major, minor, patch + 1)
     new_tag = call("git tag -a {} -m {}".format(ver, ver))
+    print(new_tag)
     push_tag_output = call("git push origin {}".format(ver))
     print(push_tag_output)
-    print(ver)
+    print(ver.replace(".", "-"))
