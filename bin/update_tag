@@ -40,8 +40,8 @@ else:
         ver = "{}.{}.{}".format(major, minor + 1, patch)
     else:
         ver = "{}.{}.{}".format(major, minor, patch + 1)
-    new_tag = call("git tag -a {} -m {}".format(ver, ver))
-    print(new_tag)
-    push_tag_output = call("git push origin {}".format(ver))
-    print(push_tag_output)
+    call('git config user.email "devs+baker@linode.com"')
+    call('git config user.name "baker"')
+    call('git tag -a {} -m {}'.format(ver, ver))
+    call('git push origin {}'.format(ver))
     print(ver.replace(".", "-"))
