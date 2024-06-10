@@ -1,11 +1,11 @@
 name: Semantic Versioning
 
 on:
-  push:
-    branches:
-      - master
-      - staging
-      - develop
+  # push:
+  #   branches:
+  #     - master
+  #     - staging
+  #     - develop
   workflow_dispatch:
 
 
