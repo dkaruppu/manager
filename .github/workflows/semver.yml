@@ -53,4 +53,4 @@ jobs:
           # If true, the branch will be used to select the maximum version.
           version_from_branch: false
       - name: Read output
-        run: echo "${{ steps.generate_new_version.outputs.major }}"
+        run: echo "Next Version is ${{ steps.generate_new_version.outputs.major }}.${{ steps.generate_new_version.outputs.minor }}.${{ steps.generate_new_version.outputs.patch }}"
