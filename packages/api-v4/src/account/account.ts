@@ -47,6 +47,7 @@ export const getNetworkUtilization = () =>
     setMethod('GET')
   );
 
+
 /**
  * updateAccountInfo
  *
